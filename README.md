@@ -11,9 +11,9 @@ Now we had two datasets saved in two different directories with identical names 
 * `transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])`
 
 ## Network Architecture
-We used skip connections int convolution layers. There was someone sync error in flow of network in original paper. So needed to change parameters and kernels size and number to make network go forward and backward without shape mismatch errors. Below image is taken from paper. [Upload Image]()
+We used skip connections int convolution layers. There was someone sync error in flow of network in original paper. So needed to change parameters and kernels size and number to make network go forward and backward without shape mismatch errors. Below image is taken from paper. ![Network Image taken from Paper](/network.png)
 ### Generator - Fully Convolutional Auto Encoder Decoder with skip Connections
-Proposed generaotr was a Fully Convolutional Auto encoder network containing skip connections at multiple level. [Upload Image](). We needed to change it as according to given architecture lateral size and kernel sizes, flow of network was errorneous. Our modified network was as follow:
+Proposed generaotr was a Fully Convolutional Auto encoder network containing skip connections at multiple level. ![Generator Image taken from Paper](/generator.png). We needed to change it as according to given architecture lateral size and kernel sizes, flow of network was errorneous. Our modified network was as follow:
 
 ##### Encoder
 Input-Channel | Output-Channel | Kernel-Size | Stride | Output-Lateral-Size | Skip-Connection-Layer
