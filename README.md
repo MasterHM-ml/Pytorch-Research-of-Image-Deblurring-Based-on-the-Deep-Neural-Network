@@ -1,5 +1,5 @@
 # Pytorch-Research-of-Image-Deblurring-Based-on-the-Deep-Neural-Network
-This repository is Clean and scratch implementation of research paper **Research of Image Deblurring Based on the Deep Neural Network**. Famous Celeba Face dataset was in this experiment. [Link to paper](https://ieeexplore.ieee.org/abstract/document/8405801/)! This project was being carried out as a semester project of **CS5102-Deep Learning** at [**NUCES ISB**](http://isb.nu.edu.pk/). Including me, three group members carried out this project. [Training Notebook](https://drive.google.com/file/d/1iWkjXSpLcAhqaONZrOCX9uK8z0vSQiDD/view?usp=sharing)!
+This repository is Clean and scratch implementation of research paper **Research of Image Deblurring Based on the Deep Neural Network**. Famous Celeba Face [Kaggle dataset](https://www.kaggle.com/jessicali9530/celeba-dataset) was used in this experiment. [Link to paper](https://ieeexplore.ieee.org/abstract/document/8405801/)! This project was being carried out as a semester project of **CS5102-Deep Learning** at [**NUCES ISB**](http://isb.nu.edu.pk/). Including me, three group members carried out this project. [Training Notebook](https://drive.google.com/file/d/1iWkjXSpLcAhqaONZrOCX9uK8z0vSQiDD/view?usp=sharing)!
 
 ## Dataset Preparations
 Famous Celeba Face dataset was downloaded from Kaggle. It has a total of 290K+ images. Entire publically available dataset was being used for this experiment. We blured dataset with a mixture of *Guassian* and *Motion* blur. Research Paper didn't specified any particular blur, so we manually perfromed motion blur on half 148K images and performed guassian blur on other 140K+ images.
@@ -13,19 +13,18 @@ Now we had two datasets saved in two different directories with identical names 
 ## Network Architecture
 We used skip connections int convolution layers. There was someone sync error in flow of network in original paper. So needed to change parameters and kernels size and number to make network go forward and backward without shape mismatch errors. Below image is taken from paper. ![Network Image taken from Paper](/network.png)
 ### Generator - Fully Convolutional Auto Encoder Decoder with skip Connections
-Proposed generaotr was a Fully Convolutional Auto encoder network containing skip connections at multiple level. ![Generator Image taken from Paper](/generator.png). We needed to change it as according to given architecture lateral size and kernel sizes, flow of network was errorneous. Our modified network was as follow:
+Proposed generaotr was a Fully Convolutional Auto encoder network containing skip connections at multiple level. ![Generator Image taken from Paper](/generator.png). For Decoder we are Using torch.nn.ConvTranspose2d to scale up. We needed to change it as according to given architecture lateral size and kernel sizes, flow of network was errorneous. Our modified network was as follow:
 
-##### Encoder
+
 Input-Channel | Output-Channel | Kernel-Size | Stride | Output-Lateral-Size | Skip-Connection-Layer
 ----------------|----------------|-------------|--------|---------------------|------------------------
+| | | **ENCODER** | |
 3 | 64 | 3 | 1 | Output 62x62 | E1
 64 | 128 | 3 | 2 | Output 30x30 | E2
 128| 256| 3| 1 | Output 28x28 |E3
 256| 512| 3| 2 |Output 13x13 | E4
 512 | 512 | 3| 1 |Output 11x11 | -
-##### Decoder - Using torch.nn.ConvTranspose2d to scale up
-Input-Channel | Output-Channel | Kernel-Size | Stride | Output-Lateral-Size | Skip-Connection-Layer
-----------------|----------------|-------------|--------|---------------------|------------------------
+| | | **DECODER** | |
 512| 128| 3| 1 |Output 13x13 | Concatenated with E4
 640| 128| 4| 2 |Output 28x28 | Concatenated with E3
 384| 64| 3| 1 |Output 30x30 | Concatenated with E2
