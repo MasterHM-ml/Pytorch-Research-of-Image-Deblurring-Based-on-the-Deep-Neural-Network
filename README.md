@@ -38,13 +38,13 @@ Our discriminator is a binary classifier, responsible for detecting fake images 
 |Input-Channel | Output-Channel | Kernel-Size | Stride | Activation |
 |--------------|----------------|-------------|--------|------------|
 |       3      |       64       |      3      |   1    | ReLU      |
-|64 | - | - | - |  **BatchNorm2d** |
+|64 |  |  |  |  **BatchNorm2d** |
 |       64     |       128      |      3      |   2    |ReLU      |
-|128 | - | - | - | **BatchNorm2d** |
+|128 |  |  |  | **BatchNorm2d** |
 |       128    |       256      |      3      |   1    | ReLU      |
-|256 | - | - | - | **BatchNorm2d** |
+|256 |  |  |  | **BatchNorm2d** |
 |       256    |       512      |      3      |   2    | ReLU       |
-|   512x13x13    |       1 | **Linear** | - | Sigmoid |
+|   512x13x13    |       1 | **Linear** |  | Sigmoid |
 
 
 
