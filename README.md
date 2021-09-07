@@ -49,3 +49,27 @@ Our discriminator is a binary classifier, responsible for detecting fake images 
 
 
 ## Loss functions
+ **Descriminator :** For the descriminator(D) side, the paper is using the standard adversarial loss, described as follows.
+
+![Adversarial Loss](/d_loss.png)
+
+ The descriminator(D) tries to maximize the above function and the generator(G) tries to minimize it. In other words we want our descriminator(D) to correctly classify "Original Images" as valid while at the same correctly classifying "Generated Images" as invalid, therefore giving us this adverse relationship between the two networks.
+
+<br>
+ 
+ **Generator :** In standard GAN models, a slightly modified BCELoss is typically used in-order to train the generator part. It is slightly modified because instead of passing in the original data to **D** we are giving it the output of **G**.
+  ![BCELoss](/bce_loss.png) 
+ 
+  In this paper's implemenration, we are using a joint loss function consisting of following two parts.
+
+  * SSIM-Loss (Structural Similarity Loss).
+
+  * BCELoss.
+
+  These two losses are added together into a joint loss and the gradients are then computed based upon this joint loss.
+
+  > SSIM loss is being used to preserve structural similarity of images.
+
+  > Also inorder to prevent our descriminator getting more powerful than our generator, for every descriminator training iteration the generator is trained 3 times.
+
+  ## Results
