@@ -62,7 +62,7 @@ Our discriminator is a binary classifier, responsible for detecting fake images 
  
   In this paper's implemenration, we are using a joint loss function consisting of following two parts.
 
-  * SSIM-Loss (Structural Similarity Loss).
+  * [SSIM-Loss](https://github.com/Po-Hsun-Su/pytorch-ssim) (Structural Similarity Loss).
 
   * BCELoss.
 
