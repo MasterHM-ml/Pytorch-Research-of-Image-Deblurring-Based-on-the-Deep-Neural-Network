@@ -49,3 +49,41 @@ Our discriminator is a binary classifier, responsible for detecting fake images 
 
 
 ## Loss functions
+ **Descriminator :** For the descriminator(D) side, the paper is using the standard adversarial loss, described as follows.
+
+![Adversarial Loss](/d_loss.png)
+
+ The descriminator(D) tries to maximize the above function and the generator(G) tries to minimize it. In other words we want our descriminator(D) to correctly classify "Original Images" as valid while at the same correctly classifying "Generated Images" as invalid, therefore giving us this adverse relationship between the two networks.
+
+<br>
+ 
+ **Generator :** In standard GAN models, a slightly modified BCELoss is typically used in-order to train the generator part. It is slightly modified because instead of passing in the original data to **D** we are giving it the output of **G**.
+  ![BCELoss](/bce_loss.png) 
+ 
+  In this paper's implemenration, we are using a joint loss function consisting of following two parts.
+
+  * [SSIM-Loss](https://github.com/Po-Hsun-Su/pytorch-ssim) (Structural Similarity Loss).
+
+  * [BCELoss](https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html).
+
+  These two losses are added together into a joint loss and the gradients are then computed based upon this joint loss.
+
+  > SSIM loss is being used to preserve structural similarity of images.
+
+  > Also inorder to prevent our descriminator getting more powerful than our generator, for every descriminator training iteration the generator is trained 3 times.
+
+  ## Results
+  We used Google Colab environment for training our networks. Primary reason for using Google Colab is its ease of use and pre-installed machine learning libraries. Also Google Colab allows us to use a GPU accelerated machine, which is quite useful for deep learning applications.
+
+  Unfortunately during our testing and training runs, Google Colab environment kept disconnecting after every couple of hours which resulted in under training of GAN network architecture. This is why we were not able to exactly match the results of the paper, still our results show that more training would result in better results. Below are the results of the original paper and also the kind of results we are able to produce.
+  
+  #### Original Paper Results
+  ![Original Paper results](/paper_results.png)
+
+  #### Our results 
+  #### (Original Images)
+  ![Original Paper results](/our_original.png)
+  #### (Blurred Images)
+  ![Original Paper results](/our_blurred.png)
+  #### (Reconstructed Images)
+  ![Original Paper results](/our_gan_reconstruction.png)
